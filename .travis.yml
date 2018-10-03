@@ -5,7 +5,7 @@ services:
 before_install:
   - docker build -t felipearomani/react-test -f ./client/Dockerfile.dev ./client
 
-scripts:
+script:
   - docker run felipearomani/react-test npm run test -- --coverage
 
 after_success:
@@ -15,7 +15,7 @@ after_success:
   - docker build -t felipearomani/multi-worker ./worker
   # Log in to the docker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  #Push images
+  # Push images
   - docker push felipearomani/multi-client
   - docker push felipearomani/multi-nginx
   - docker push felipearomani/multi-server
