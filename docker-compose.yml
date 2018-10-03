@@ -1,0 +1,49 @@
+version: "3"
+services:
+  pg-server:
+      image: 'postgres:latest'
+      environment:
+        POSTGRES_PASSWORD: root
+        POSTGRES_USER: root
+        POSTGRES_DB: complex 
+  redis-server:
+      image: 'redis:latest'
+  worker:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./worker
+    volumes: 
+      - ./worker:/worker
+      - /worker/node_modules
+    environment: 
+      REDIS_HOST: redis-server
+      REDIS_PORT: 6379
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./server:/server
+      - /server/node_modules
+    environment: 
+      REDIS_HOST: redis-server
+      REDIS_PORT: 6379
+      PGUSER: root
+      PGHOST: pg-server
+      PGDATABASE: complex
+      PGPASSWORD: root
+      PGPORT: 5432
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./client:/client
+      - /client/node_modules
+  nginx:
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    ports: 
+      - "80:80"
