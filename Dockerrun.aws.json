@@ -11,9 +11,9 @@
         {
             "name": "server",
             "image": "felipearomani/multi-server",
-            "hotname": "api",
+            "hostname": "api",
             "essential": false,
-            "memory": 128
+            "memory": 128 
         },
         {
             "name": "worker",

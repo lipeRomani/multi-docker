@@ -1,8 +1,10 @@
+# COMPLEX SERVER DOCKERFILE - DEV
 FROM node:alpine
 
 WORKDIR /server
 
 COPY ./package*.json ./
+
 RUN npm install
 
 COPY . .
