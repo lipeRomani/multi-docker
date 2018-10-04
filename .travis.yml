@@ -20,3 +20,16 @@ after_success:
   - docker push felipearomani/multi-nginx
   - docker push felipearomani/multi-server
   - docker push felipearomani/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-west-2
+  app: romani-multi-docker
+  env: RomaniMultiDocker-env
+  bucket_name: elasticbeanstalk-us-west-2-769177069788
+  bucket_path: romani-multi-docker
+  on:
+      branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
