@@ -3,8 +3,8 @@ services:
   postgres:
     image: 'postgres:latest'
     environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_USER: postgres_password
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: root
       POSTGRES_DB: complex
   redis:
     image: 'redis:latest'
@@ -18,10 +18,10 @@ services:
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      PGUSER: postgres
+      PGUSER: root
       PGHOST: postgres
       PGDATABASE: complex
-      PGPASSWORD: postgres_password
+      PGPASSWORD: root
       PGPORT: 5432   
   worker:
     build:
